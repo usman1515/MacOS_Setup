@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# ----------------------------------------------- display menu
+echo -e ""
+read -p "Install git            (Press y/n): " apt_git
+read -p "Install gcc            (Press y/n): " apt_gcc
+read -p "Install make           (Press y/n): " apt_make
+read -p "Install python         (Press y/n): " apt_python3
+read -p "Install java           (Press y/n): " apt_openjdk
+read -p "Install scala          (Press y/n): " apt_scala
+read -p "Install docker         (Press y/n): " apt_docker
+echo -e ""
+
 # ----------------------------------------------- installing git
 if [ $apt_git == y ] || [ $apt_git == Y ]
 then
