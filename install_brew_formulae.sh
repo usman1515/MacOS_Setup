@@ -1,13 +1,21 @@
 #!/bin/bash
 
 # Formulae are command line tools
-
-#!/bin/bash
-
 # ----------------------------------------------- Install the following packages
-read -p "Install tree               (Press y/n):    " brew_tree
-
-
+echo -e ""
+read -p "Install curl               (Press y/n): " brew_curl
+read -p "Install grep               (Press y/n): " brew_grep
+read -p "Install sed                (Press y/n): " brew_sed
+read -p "Install awk                (Press y/n): " brew_awk
+read -p "Install tree               (Press y/n): " brew_tree
+read -p "Install fortune            (Press y/n): " brew_fortune
+read -p "Install cowsay             (Press y/n): " brew_cowsay
+read -p "Install neofetch           (Press y/n): " brew_neofetch
+read -p "Install vim                (Press y/n): " brew_vim
+read -p "Install neovim             (Press y/n): " brew_neovim
+read -p "Install cmatrix            (Press y/n): " brew_cmatrix
+read -p "Install tmux               (Press y/n): " brew_tmux
+echo -e ""
 
 # ----------------------------------------------- installing curl
 if [ $brew_curl == y ] || [ $brew_curl == Y ]
@@ -100,4 +108,12 @@ then
     brew install cmatrix
 else
     echo -e "\t SKIPPING cmatrix installation"
+fi
+# ----------------------------------------------- installing tmux
+if [ $brew_tmux == y ] || [ $brew_tmux == Y ]
+then
+    echo -e "\n\n=============================================> Installing tmux \n"
+    brew install tmux
+else
+    echo -e "\t SKIPPING tmux installation"
 fi
