@@ -14,4 +14,5 @@ chsh -s /bin/bash
 echo -e "Now using shell:       " $SHELL
 bash --version
 
-# https://sourabhbajaj.com/mac-setup/BashCompletion/
+# install bash auto completion
+brew install bash-completion
