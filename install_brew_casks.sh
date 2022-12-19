@@ -1,6 +1,24 @@
 #!/bin/bash
 
 # Casks are actual GUI based tools that we use
+# ----------------------------------------------- Install the following packages
+echo -e ""
+read -p "Install firefox            (Press y/n): " brew_firefox
+read -p "Install rectangle          (Press y/n): " brew_rectangle
+read -p "Install alttab             (Press y/n): " brew_alttab
+read -p "Install alfred             (Press y/n): " brew_alfred
+read -p "Install raycast            (Press y/n): " brew_raycast
+read -p "Install slack              (Press y/n): " brew_slack
+read -p "Install keka               (Press y/n): " brew_keka
+read -p "Install vlc                (Press y/n): " brew_vlc
+read -p "Install vscode             (Press y/n): " brew_vscode
+read -p "Install sublimetext        (Press y/n): " brew_sublimetext
+read -p "Install qbittorrent        (Press y/n): " brew_qbittorrent
+read -p "Install steam              (Press y/n): " brew_steam
+read -p "Install epicgames          (Press y/n): " brew_epicgames
+read -p "Install spotify            (Press y/n): " brew_spotify
+read -p "Install epicgames          (Press y/n): " brew_epicgames
+echo -e ""
 
 # ----------------------------------------------- installing firefox
 if [ $brew_firefox == y ] || [ $brew_firefox == Y ]
