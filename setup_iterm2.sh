@@ -25,6 +25,9 @@ brew cask install font-jetbrains-mono-nerd-font
 brew cask install font-overpass-nerd-font
 brew cask install font-roboto-mono-nerd-font
 
+# install starship
+brew install starship
+
 # install oh-my-posh
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
 
