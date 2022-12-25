@@ -6,6 +6,11 @@ cd ~
 #----------------------------------------------- setting up SSH key
 if [ $setup_ssh == y ] || [ $setup_ssh == Y ]
 then
+    # check in the $HOME dir
+    ls -al ~/.ssh
+    # create .ssh directory if it doesnt exist
+    [ -d .ssh ] && echo ".ssh directory already exists" || mkdir .ssh
+    echo -e""
     echo -e "Setting up SSH key \n"
     read -p "Enter your email address: " email_address
     # generate a new SSH key
@@ -13,10 +18,14 @@ then
     # start the ssh-agent in background
     eval "$(ssh-agent -s)"
     # add SSH private key to ssh agent
-    ssh-add $PWD/.ssh/id_ed25519
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    ls -al ~/.ssh
     # display public ssh key
     echo "Add this key in GitHub/GitLab etc"
-    cat $PWD/.ssh/id_ed25519.pub
+    cat ~/.ssh/id_ed25519.pub
 else
     echo -e "\t SKIPPING SSH key setup"
 fi
+
+# copy the ssh config file
+cp -rv configs/config ~/.ssh
