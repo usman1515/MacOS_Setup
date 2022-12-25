@@ -1,0 +1,4 @@
+Host *.github.com
+	AddKeysToAgent yes
+	UseKeychain no
+	IdentityFile ~/.ssh/id_ed25519
