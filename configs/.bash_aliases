@@ -21,6 +21,8 @@ eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/kali.omp.json)"
 # eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/slimfat.omp.json)"
 # eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/ys.omp.json)"
 
+# Specify default editor. Possible values: vim, nano, ed etc.
+export EDITOR=vim
 
 # =========================== common command aliases
 # go to directory
