@@ -17,7 +17,7 @@ read -p "Install qbittorrent        (Press y/n): " brew_qbittorrent
 read -p "Install steam              (Press y/n): " brew_steam
 read -p "Install epicgames          (Press y/n): " brew_epicgames
 read -p "Install spotify            (Press y/n): " brew_spotify
-read -p "Install epicgames          (Press y/n): " brew_epicgames
+read -p "Install gtkwave            (Press y/n): " brew_gtkwave
 echo -e ""
 
 # ----------------------------------------------- installing firefox
@@ -89,6 +89,8 @@ if [ $brew_vscode == y ] || [ $brew_vscode == Y ]
 then
     echo -e "\n\n=============================================> Installing vscode \n"
     brew install --cask visual-studio-code
+    echo -e "\n\n=============================================> Installing vscode extensions \n"
+    source install_vscode_extensions.sh
 else
     echo -e "\t SKIPPING vscode installation"
 fi
