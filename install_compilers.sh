@@ -16,7 +16,16 @@ if [ $apt_git == y ] || [ $apt_git == Y ]
 then
     echo -e "\n\n=============================================> Installing git \n"
     brew install git
-    cp -rv ./configs/.gitconfig ~/.gitconfig
+    cp -rv configs/.gitconfig ~/.gitconfig
+    # enter GitHub/GitLab user credentials
+    read -p "Enter GitHub/GitLab user: " git_user
+    read -p "Enter GitHub/GitLab user name: " git_name
+    read -p "Enter GitHub/GitLab user email: " git_email
+    git config --global user.user $git_user
+    git config --global user.name $git_name
+    git config --global user.email $git_email
+    # view git config
+    cat ~/.gitconfig
 else
     echo -e "\t SKIPPING git installation"
 fi
