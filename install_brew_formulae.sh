@@ -4,6 +4,8 @@
 # ----------------------------------------------- Install the following packages
 echo -e ""
 read -p "Install curl               (Press y/n): " brew_curl
+read -p "Install wget               (Press y/n): " brew_wget
+read -p "Install coreutils          (Press y/n): " brew_coreutils
 read -p "Install grep               (Press y/n): " brew_grep
 read -p "Install sed                (Press y/n): " brew_sed
 read -p "Install awk                (Press y/n): " brew_awk
@@ -25,6 +27,22 @@ then
     brew install curl
 else
     echo -e "\t SKIPPING curl installation"
+fi
+# ----------------------------------------------- installing wget
+if [ $brew_wget == y ] || [ $brew_wget == Y ]
+then
+    echo -e "\n\n=============================================> Installing wget \n"
+    brew install wget
+else
+    echo -e "\t SKIPPING wget installation"
+fi
+# ----------------------------------------------- installing coreutils
+if [ $brew_coreutils == y ] || [ $brew_coreutils == Y ]
+then
+    echo -e "\n\n=============================================> Installing coreutils \n"
+    brew install coreutils
+else
+    echo -e "\t SKIPPING coreutils installation"
 fi
 # ----------------------------------------------- installing grep
 if [ $brew_grep == y ] || [ $brew_grep == Y ]
