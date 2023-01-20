@@ -57,6 +57,10 @@ eval "$(starship init bash)"
 # eval "$(oh-my-posh init bash --config /opt/homebrew/opt/oh-my-posh/themes/jandedobbeleer.omp.json)"
 
 # ====================================================== Aliases
+# replace clang GCC/G++ with GNU
+alias g++='g++-12'
+alias gcc='gcc-12'
+
 # add color support
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
