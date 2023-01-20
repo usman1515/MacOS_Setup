@@ -5,7 +5,6 @@
 echo -e ""
 read -p "Install curl               (Press y/n): " brew_curl
 read -p "Install wget               (Press y/n): " brew_wget
-read -p "Install coreutils          (Press y/n): " brew_coreutils
 read -p "Install grep               (Press y/n): " brew_grep
 read -p "Install sed                (Press y/n): " brew_sed
 read -p "Install awk                (Press y/n): " brew_awk
@@ -17,6 +16,12 @@ read -p "Install vim                (Press y/n): " brew_vim
 read -p "Install neovim             (Press y/n): " brew_neovim
 read -p "Install cmatrix            (Press y/n): " brew_cmatrix
 read -p "Install tmux               (Press y/n): " brew_tmux
+read -p "Install htop               (Press y/n): " brew_htop
+read -p "Install exa                (Press y/n): " brew_exa
+read -p "Install ncdu               (Press y/n): " brew_ncdu
+read -p "Install bat                (Press y/n): " brew_bat
+read -p "Install imagemagick        (Press y/n): " brew_imagemagick
+read -p "Install speedtest_cli      (Press y/n): " brew_speedtest_cli
 echo -e ""
 
 # ----------------------------------------------- installing curl
@@ -35,14 +40,6 @@ then
     brew install wget
 else
     echo -e "\t SKIPPING wget installation"
-fi
-# ----------------------------------------------- installing coreutils
-if [ $brew_coreutils == y ] || [ $brew_coreutils == Y ]
-then
-    echo -e "\n\n=============================================> Installing coreutils \n"
-    brew install coreutils
-else
-    echo -e "\t SKIPPING coreutils installation"
 fi
 # ----------------------------------------------- installing grep
 if [ $brew_grep == y ] || [ $brew_grep == Y ]
@@ -134,4 +131,52 @@ then
     brew install tmux
 else
     echo -e "\t SKIPPING tmux installation"
+fi
+# ----------------------------------------------- installing htop
+if [ $brew_htop == y ] || [ $brew_htop == Y ]
+then
+    echo -e "\n\n=============================================> Installing htop \n"
+    brew install htop
+else
+    echo -e "\t SKIPPING htop installation"
+fi
+# ----------------------------------------------- installing exa
+if [ $brew_exa == y ] || [ $brew_exa == Y ]
+then
+    echo -e "\n\n=============================================> Installing exa \n"
+    brew install exa
+else
+    echo -e "\t SKIPPING exa installation"
+fi
+# ----------------------------------------------- installing ncdu
+if [ $brew_ncdu == y ] || [ $brew_ncdu == Y ]
+then
+    echo -e "\n\n=============================================> Installing ncdu \n"
+    brew install ncdu
+else
+    echo -e "\t SKIPPING ncdu installation"
+fi
+# ----------------------------------------------- installing bat
+if [ $brew_bat == y ] || [ $brew_bat == Y ]
+then
+    echo -e "\n\n=============================================> Installing bat \n"
+    brew install bat
+else
+    echo -e "\t SKIPPING bat installation"
+fi
+# ----------------------------------------------- installing imagemagick
+if [ $brew_imagemagick == y ] || [ $brew_imagemagick == Y ]
+then
+    echo -e "\n\n=============================================> Installing imagemagick \n"
+    brew install imagemagick
+else
+    echo -e "\t SKIPPING imagemagick installation"
+fi
+# ----------------------------------------------- installing speedtest_cli
+if [ $brew_speedtest_cli == y ] || [ $brew_speedtest_cli == Y ]
+then
+    echo -e "\n\n=============================================> Installing speedtest_cli \n"
+    brew install speedtest-cli
+else
+    echo -e "\t SKIPPING speedtest-cli installation"
 fi
