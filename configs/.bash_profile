@@ -1,16 +1,34 @@
-# https://github.com/w3cj/dotfiles
+# =============================================== add homebrew installed packages paths to $PATH var
+# homebrew
+if [ -d "/opt/homebrew/bin" ]; then
+	PATH="/opt/homebrew/bin:$PATH"
+fi
+# make - installed as gmake
+if [ -d "/opt/homebrew/opt/make/libexec/gnubin" ]; then
+	PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+fi
+# python3.10
+if [ -d "/opt/homebrew/bin/python3" ]; then
+	PATH="/opt/homebrew/bin/python3:$PATH"
+fi
+# curl
+if [ -d "/opt/homebrew/opt/curl/bin" ]; then
+	PATH="/opt/homebrew/opt/curl/bin:$PATH"
+fi
+# sed - installed as gsed
+if [ -d "/opt/homebrew/opt/gnu-sed/libexec/gnubin" ]; then
+	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# bash completion
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+
+# =======================================================================================
+# =======================================================================================
 
 # append to the history file, don't overwrite it
+shopt -s autocd
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
@@ -21,39 +39,67 @@ HISTFILESIZE=20000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+# Specify default editor. Possible values: vim, nano, ed etc.
+export EDITOR=vim
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+# ====================================================== prettify terminal
+# display neofetch on terminal
+# neofetch
 
-# colored GCC warnings and errors
-# export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# display fortune quote inside cowsay tux
+# fortune | cowsay -f tux
 
-# Add an "alert" alias for long running commands.  Use like so:
-# sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# specfiy user in terminal - default case
+export PS1="[\e[01;32m\]\u\e[m@\e[1;36m\h\e[m] \e[1;35m[\w]\e[m \n$ "
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+# starship terminal emulator
+# eval "$(starship init bash)"
 
-# bash auto completion
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+# oh-my-posh terminal emulator
+# eval "$(oh-my-posh init bash --config /opt/homebrew/opt/oh-my-posh/themes/jandedobbeleer.omp.json)"
+
+# ====================================================== Aliases
+# replace clang GCC/G++ with GNU
+alias g++='g++-12'
+alias gcc='gcc-12'
+
+# add color support
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# go to directory
+alias 1..='cd ..'
+alias 2..='cd ../..'
+alias 3..='cd ../../..'
+alias 4..='cd ../../../..'
+
+# display folders
+alias ls='exa -GxF --icons --group-directories-first --color=auto'
+alias ll='exa -alhF --icons --group-directories-first --color=auto'
+
+# display all mounted drives
+alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
+
+# count files in directory
+alias count='find . -type f | wc -l'
+
+# copy progress bar: cpy ./source ./destination
+alias cpv='rsync -ah --info=progress2'
+
+# change dir and view contents simultaneously
+function cl() {
+    DIR="$*";
+        # if no DIR given, go home
+        if [ $# -lt 1 ]; then
+                DIR=$HOME;
+    fi;
+    builtin cd "${DIR}" && \
+    # use your preferred ls command
+        ls -F --group-directories-first --color=auto
+}
