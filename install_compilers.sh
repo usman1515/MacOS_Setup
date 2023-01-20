@@ -34,14 +34,15 @@ if [ $apt_gcc == y ] || [ $apt_gcc == Y ]
 then
     echo -e "\n\n=============================================> Installing gcc \n"
     gcc --version
-    # install GCC
-    brew install gcc@12
+    g++ --version
+    # install GCC and GPP
+    brew install gcc
     gcc-12 --version
-    # make sofy symbolic links
+    g++-12 --version
+    # make soft symbolic links
     cd /opt/homebrew/bin
-    # ln -s gcc-12 gcc  # use alias gcc='gcc-12'
-    # ln -s g++-12 g++  # use alias gcc='gcc-12'
-
+    ln -s gcc-12 gcc  # use alias gcc='gcc-12'
+    ln -s g++-12 g++  # use alias gcc='gcc-12'
     gcc --version
     g++ --version
 else
@@ -60,9 +61,8 @@ if [ $apt_python3 == y ] || [ $apt_python3 == Y ]
 then
     echo -e "\n\n=============================================> Installing python3 \n"
     # install python3 and pip
-    brew install python@3.9
+    brew install python@3.10
     python3 --version
-    pip --version
     pip3 --version
     # upgrade pip
     pip install --upgrade setuptools
@@ -70,7 +70,8 @@ then
     # install pyenv - python version manager
     brew install pyenv
     # install virtualenv
-    python3 -m pip install --user virtualenv
+    pip3 install virtualenv
+    brew install pip-completion
 else
     echo -e "\t SKIPPING python3 installation"
 fi
