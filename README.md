@@ -1,18 +1,47 @@
 # MacOS Setup
 
+<!-- ## Table of Contents -->
+- [MacOS Setup](#macos-setup)
+  - [Introduction](#introduction)
+  - [1.   Setting Up System Preferences](#1---setting-up-system-preferences)
+    - [1.1 General](#11-general)
+    - [1.2 Dock and Menu Bar](#12-dock-and-menu-bar)
+    - [1.5 Trackpad](#15-trackpad)
+    - [1.6 Displays](#16-displays)
+  - [2.   Setting up the Development Environment](#2---setting-up-the-development-environment)
+  - [3.   Setting up iTerm2](#3---setting-up-iterm2)
+    - [3.1 Setting up iTerm2 Preferences](#31-setting-up-iterm2-preferences)
+    - [3.2 Add iterm2 in spotlight](#32-add-iterm2-in-spotlight)
+  - [4.   Change default $SHELL to BASH](#4---change-default-shell-to-bash)
+  - [5.   Install Compilers and Toolchains](#5---install-compilers-and-toolchains)
+  - [6.   Setup SSH for GitHub/GitLab etc](#6---setup-ssh-for-githubgitlab-etc)
+  - [7.   Change HostName of PC](#7---change-hostname-of-pc)
+  - [8.   Setting up Keyboard Shortcuts](#8---setting-up-keyboard-shortcuts)
+  - [9.   Install Command Line Tools](#9---install-command-line-tools)
+  - [10.  Install Graphical User Interface Tools](#10--install-graphical-user-interface-tools)
+  - [11.  Basic Configurations](#11--basic-configurations)
+    - [11.1    Setup configs for CLI based tools](#111----setup-configs-for-cli-based-tools)
+    - [11.2    Sort all apps in Launchpad](#112----sort-all-apps-in-launchpad)
+    - [11.3    Set the dock to not show recently opened apps](#113----set-the-dock-to-not-show-recently-opened-apps)
+    - [11.4    Setup Mission Control](#114----setup-mission-control)
+    - [11.4    Display only apps on current desktop when using alt-tab](#114----display-only-apps-on-current-desktop-when-using-alt-tab)
+    - [11.5    Finder](#115----finder)
+    - [11.6    Set desktop scaling](#116----set-desktop-scaling)
+
+
 ## Introduction
 This repo is designed for anyone who is moving from Linux to MacOS for the 1st time. The reason for the switch is simply because of the new Apple Silicon that is being offered. I still pretty much will be using my Linux workflow and tools on the Mac. This guide simply eases in the migration of those tools.
 
 The following environment was developed on an Apple MacBook Air M1 running MacOS Monterey (ver 12.5). You can read more about it [here](https://www.apple.com/macbook-air-m1/).
 
-## System Preferences
+## 1.   Setting Up System Preferences
 As this is a new computer there are a couple tweaks you could make to the System Preferences. These include but aren't limited to:
 
-### General
+### 1.1 General
 -   Show scroll bar:
 -   -   [x] Always
 
-### Dock and Menu Bar
+### 1.2 Dock and Menu Bar
 -   Dock size: set slider to approx 20%
 -   -   [x] Magnification: set slider to approx 50%.
 -   -   [x] Automatically hide and show the dock.
@@ -28,9 +57,7 @@ As this is a new computer there are a couple tweaks you could make to the System
 -   Spotlight:
     -   [ ] Show in menu bar.
 
-### Mission Control
-### Sound
-### Trackpad
+### 1.5 Trackpad
 -   Point and click
     -   -   [x] Secondary click.
     -   -   [x] Tap to click.
@@ -41,7 +68,7 @@ As this is a new computer there are a couple tweaks you could make to the System
     -   -   [x] Smart zoom
     -   -   [x] Rotate
 
-### Displays
+### 1.6 Displays
 -   -   [ ] Automatically adjust brightness
 
 Once all this done run he following commands in the terminal and restart the machine.
@@ -61,7 +88,7 @@ mkdir -p ~/Pictures/Screenshots
 defaults write com.apple.screencapture location ~/Pictures/Screenshots && killall SystemUIServer
 ```
 
-## Setting up the Development Environment
+## 2.   Setting up the Development Environment
 1.  Install xcode:
     ```zsh
     sudo xcode-select --install
@@ -72,8 +99,12 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
     brew doctor
     brew install brew-cask-completion
     ```
+3.  Install [Rosetta](https://support.apple.com/en-us/HT211861):
+    ```zsh
+    /usr/sbin/softwareupdate --install-rosetta --agree-to-license
+    ```
 
-## Setting up iTerm2
+## 3.   Setting up iTerm2
 1.  Install iterm2
     ```zsh
     brew install --cask iterm2
@@ -81,12 +112,26 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 2.  Install a [Nerd font](https://www.nerdfonts.com/font-downloads).
     ```zsh
     brew tap homebrew/cask-fonts
-    brew cask install font-caskaydia-cove-nerd-font
+    brew install --cask font-caskaydia-cove-nerd-font
+
+    # install fonts
+    brew install --cask font-anonymous-pro
+    brew install --cask font-anonymice-nerd-font
+    brew install --cask font-caskaydia-cove-nerd-font
+    brew install --cask font-fira-code-nerd-font
+    brew install --cask font-iosevka-nerd-font
+    brew install --cask font-inconsolata-nerd-font
+    brew install --cask font-inconsolata-lgc-nerd-font
+    brew install --cask font-inconsolata-go-nerd-font
+    brew install --cask font-jetbrains-mono-nerd-font
+    brew install --cask font-overpass-nerd-font
+    brew install --cask font-roboto-mono-nerd-font
+
     # list all fonts you can install this way
     brew search "/font-/"
     ```
 
-### Setting up iTerm2 Preferences
+### 3.1 Setting up iTerm2 Preferences
 1.   -   [x] Make iTerm2 default term.
 2.  General -> selection:
     -   -   [x] Copied text includes trailing new line.
@@ -114,11 +159,11 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
     -   -   [x] use ligatures.
 9.  Profiles -> Window -> Settings for new windows:
     -   Style: Normal
-    -   Space: All Spaces
+    -   Space: Space N
 10. Profiles -> Terminal -> Scrollback buffer:
     -   -   [x] unlimited scrollback.
 11. Profiles -> Terminal -> Terminal Emulation:
-    -   -   [] enable mouse reporting.
+    -   -   [ ] enable mouse reporting.
 12. Profiles -> Sessions:
     -   -   [x] Status bar enabled.
     -   Configure status bar:
@@ -126,18 +171,18 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
         -   Active components: `CPU`, `RAM`, `Network`.
 13. Keys -> Hotkey -> Create a dedicated hotkey window: `Ctrl` + `~`.
 
-### Add iterm2 in spotlight
+### 3.2 Add iterm2 in spotlight
 -   Goto System Preferences -> Users and Groups -> you user -> Login Items:
     -   `+` -> Applications -> iTerm. Add it.
     -   [x] Hide
 
-## Change default $SHELL to BASH
+## 4.   Change default $SHELL to BASH
 -   To change the default shell from [ZSH](https://www.zsh.org/) to [BASH](https://www.gnu.org/software/bash/) run the following script.
     ```bash
     source setup_bash.sh
     ```
 
-## Install Compilers and Toolchains
+## 5.   Install Compilers and Toolchains
 -   To install various compilers and tool-chains run the following script.
     ```bash
     source install_compilers.sh
@@ -154,7 +199,29 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 | [scala](https://www.scala-lang.org/)       | JVM-based programming language |
 | [docker](https://www.docker.com/)          | Container environment          |
 
-## Install Command Line Tools
+## 6.   Setup SSH for GitHub/GitLab etc
+-   To generate a SSH key run the following script.
+    ```bash
+    source setup_sshkey.sh
+    ```
+
+## 7.   Change HostName of PC
+-   To change the hostname of the PC via terminal enter the following commands:
+    ```zsh
+    sudo scutil --get HostName
+    sudo scutil --set HostName <your_host_name>
+    ```
+
+## 8.   Setting up Keyboard Shortcuts
+-   To create new and change existing keyboard shortcuts goto:
+    System Preferences -> Keyboard -> Shortcuts
+-   Some of my shortcut keymappings include:
+
+| App       | Key Mapping    |
+| :-------- | :------------- |
+| Launchpad | Option + Space |
+
+## 9.   Install Command Line Tools
 -   To install various cli tools run the following script.
     ```bash
     source install_brew_formulae.sh
@@ -167,7 +234,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 | [wget](https://www.gnu.org/software/wget/)                                        | Internet file retriever                                      |
 | [grep](https://www.gnu.org/software/grep/)                                        | GNU grep, egrep and fgrep                                    |
 | [sed](https://www.gnu.org/software/sed/)                                          | GNU sed                                                      |
-| [awk](https://www.cs.princeton.edu/~bwk/btl.mirror/)                              | Text processing scripting language                           |
+| [gawk](https://www.gnu.org/software/gawk/)                                        | GNU awk utility                                              |
 | [tree](http://mama.indstate.edu/users/ice/tree/)                                  | Display directories as trees                                 |
 | [fortune](https://www.ibiblio.org/pub/linux/games/amusements/fortune/!INDEX.html) | Infamous electronic fortune-cookie generator                 |
 | [cowsay](https://github.com/tnalpgge/rank-amateur-cowsay)                         | Configurable talking characters in ASCII art                 |
@@ -182,14 +249,80 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 | [bat](https://github.com/sharkdp/bat)                                             | Clone of cat(1) with syntax highlighting and Git integration |
 | [imagemagick](https://imagemagick.org/index.php)                                  | Tools and libraries to manipulate images in many formats     |
 | [speedtest-cli](https://github.com/sivel/speedtest-cli)                           | CLI for https://speedtest.net                                |
+| [youtube-dl](https://youtube-dl.org/)                                             | Download YouTube videos from the command-line                |
 
-## Install Graphical User Interface Tools
+## 10.  Install Graphical User Interface Tools
 -   To install various cli tools run the following script.
     ```bash
     source install_brew_casks.sh
     ```
--   Following compilers and toolchains are available.
+-   Following softwares are available.
 
-| Application                                          | Description |
-| :--------------------------------------------------- | :---------- |
-| [visual-studio-code](https://code.visualstudio.com/) |             |
+| Application                                          | Description                                      |
+| :--------------------------------------------------- | :----------------------------------------------- |
+| [visual-studio-code](https://code.visualstudio.com/) | Code Editor                                      |
+| [alacriity](https://github.com/alacritty/alacritty/) | GPU-accelerated terminal emulator                |
+| [firefox](https://www.mozilla.org/firefox/)          | Web Browser                                      |
+| [opera](https://www.opera.com/)                      | Web Browser                                      |
+| [rectangle](https://rectangleapp.com/)               | Move and resize windows                          |
+| [alt-tab](https://github.com/lwouis/alt-tab-macos)   | Enable Windows-like alt-tab                      |
+| [slack](https://slack.com/)                          | Team communication and collaboration software    |
+| [vlc](https://www.videolan.org/vlc/)                 | Multimedia player                                |
+| [iina](https://www.videolan.org/vlc/)                | Free and open-source media player                |
+| [sublimetext](https://www.sublimetext.com/)          | Text editor for code, markup and prose           |
+| [qbittorrent](https://www.qbittorrent.org/)          | Peer to peer Bitorrent client                    |
+| [steam](https://store.steampowered.com/about/)       | Video game digital distribution service          |
+| [epicgames](https://www.epicgames.com/)              | Video game digital distribution service          |
+| [spotify](https://www.spotify.com/)                  | Music streaming service                          |
+| [gtkwave](https://gtkwave.sourceforge.io/)           | GTK+ based wave viewer                           |
+| [whatsapp](https://www.whatsapp.com/)                | Desktop client for whatsapp                      |
+| [google drive](https://www.google.com/drive/)        | Client for the Google Drive storage service      |
+| [dropbox](https://www.dropbox.com/)                  | Client for the Dropbox cloud storage service     |
+| [discord](https://discord.com/)                      | Voice and text chat software                     |
+| [joplin](https://joplinapp.org/)                     | Markdown note taking and to-do application       |
+| [keycastr](https://github.com/keycastr/keycastr)     | Open-source keystroke visualizer                 |
+| [balena etcher](https://balena.io/etcher)            | Tool to flash OS images to SD cards & USB drives |
+
+## 11.  Basic Configurations
+### 11.1    Setup configs for CLI based tools
+To setup configs for various CLi tools including git, neovim, tmux look into this [dotfiles](https://github.com/usman1515/dotfiles) repo.
+
+### 11.2    Sort all apps in Launchpad
+```zsh
+defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+```
+The following command will arrange all MacOS apps on the 1st page and all installed apps on the other pages.
+
+### 11.3    Set the dock to not show recently opened apps
+System Preferences -> Dock and Menu Bar
+-   [ ] Show recent applications in dock.
+
+### 11.4    Setup Mission Control
+-   Setup particular apps to open only on specific spaces (desktops.)
+    -   Desktop 1: Finder
+    -   Desktop 2: Web Browser
+    -   Desktop 3: VS Code
+    -   Desktop 4: iTerm
+    -   Desktop 5:
+
+dock, right click, assign to, this desktop
+
+### 11.4    Display only apps on current desktop when using alt-tab
+Goto Alt-Tab preferences
+Controls -> Shortcut 1 -> Show windows from: Visible spaces.
+
+### 11.5    Finder
+-   Set new finder window to always display $HOME dir.
+    -   Preferences -> New finder window shows: home dir
+-   Display home directory in favourites.
+    -   Preferences -> Sidebar:
+        -   [x] user_name
+-   Other settings:
+    -   Preferences -> Advanced:
+        -   [x] Show all filename extensions.
+        -   [x] Remove items form bin after 30 days
+        -   [x] Keep folders on top: In windows when sorting by name.
+
+### 11.6    Set desktop scaling
+-   System Preferences -> Displays -> Resolution:
+    -   [x] Scaled -> More space
