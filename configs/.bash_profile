@@ -18,14 +18,36 @@ fi
 # sed - installed as gsed
 if [ -d "/opt/homebrew/opt/gnu-sed/libexec/gnubin" ]; then
 	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+    # For compilers to find curl you may need to set:
+    export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+fi
+# awk - installed as gawk
+if [ -d "/opt/homebrew/opt/gawk/libexec/gnubin" ]; then
+	PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
+fi
+# bison
+if [ -d "/opt/homebrew/opt/bison/bin" ]; then
+    PATH="/opt/homebrew/opt/bison/bin:$PATH"
+    LDFLAGS="-L/opt/homebrew/opt/bison/lib"
+fi
+# flex
+if [ -d "/opt/homebrew/opt/flex/bin" ]; then
+    PATH="/opt/homebrew/opt/flex/bin:$PATH"
+    LDFLAGS="-L/opt/homebrew/opt/flex/lib"
+    CPPFLAGS="-I/opt/homebrew/opt/flex/include"
+fi
+# libffi
+if [ -d "/opt/homebrew/opt/libffi/" ]; then
+    export LDFLAGS="-L/opt/homebrew/opt/libffi/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/libffi/include"
 fi
 
+# =======================================================================================
+# =======================================================================================
 
 # bash completion
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-
-# =======================================================================================
-# =======================================================================================
 
 # append to the history file, don't overwrite it
 shopt -s autocd
@@ -45,7 +67,7 @@ case "$TERM" in
 esac
 
 # Specify default editor. Possible values: vim, nano, ed etc.
-export EDITOR=vim
+export EDITOR=nvim
 
 # ====================================================== prettify terminal
 # display neofetch on terminal
@@ -61,7 +83,12 @@ export PS1="[\e[01;32m\]\u\e[m@\e[1;36m\h\e[m] \e[1;35m[\w]\e[m \n$ "
 # eval "$(starship init bash)"
 
 # oh-my-posh terminal emulator
-# eval "$(oh-my-posh init bash --config /opt/homebrew/opt/oh-my-posh/themes/jandedobbeleer.omp.json)"
+eval "$(oh-my-posh init bash)"
+# view available themes: ls $(brew --prefix oh-my-posh)/themes
+
+# my favourite oh-my-posh themes - uncomment to set
+# eval "$(oh-my-posh init bash --config /opt/homebrew/opt/oh-my-posh/themes/iterm2.omp.json)"
+eval "$(oh-my-posh init bash --config /opt/homebrew/opt/oh-my-posh/themes/kali.omp.json)"
 
 # ====================================================== Aliases
 # replace clang GCC/G++ with GNU
@@ -83,6 +110,9 @@ alias 4..='cd ../../../..'
 alias ls='exa -GxF --icons --group-directories-first --color=auto'
 alias ll='exa -alhF --icons --group-directories-first --color=auto'
 
+# display tree
+alias tree='tree -q --dirsfirst -C --sort name'
+
 # display all mounted drives
 alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
 
@@ -101,5 +131,5 @@ function cl() {
     fi;
     builtin cd "${DIR}" && \
     # use your preferred ls command
-        ls -F --group-directories-first --color=auto
+        ls
 }
