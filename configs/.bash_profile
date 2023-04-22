@@ -46,8 +46,22 @@ fi
 # =======================================================================================
 # =======================================================================================
 
-# bash completion
-[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+# bash completion installed at - /opt/homebrew/etc/bash_completion.d
+# * method 1
+# [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+# * method 2
+if type brew &>/dev/null; then
+    HOMEBREW_PREFIX="$(brew --prefix)"
+    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+        source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+        # echo "im in folder A: ${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+    else
+        # echo "im in folder B: ${HOMEBREW_PREFIX}/etc/bash_completion.d/*"
+        for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+            [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+        done
+    fi
+fi
 
 # append to the history file, don't overwrite it
 shopt -s autocd
@@ -122,7 +136,9 @@ alias count='find . -type f | wc -l'
 # copy progress bar: cpy ./source ./destination
 alias cpv='rsync -ah --info=progress2'
 
-# change dir and view contents simultaneously
+# sort icons in dock
+alias sort_dock="defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock"
+
 function cl() {
     DIR="$*";
         # if no DIR given, go home
@@ -131,5 +147,5 @@ function cl() {
     fi;
     builtin cd "${DIR}" && \
     # use your preferred ls command
-        ls
+        ls -F --group-directories-first --color=auto
 }
