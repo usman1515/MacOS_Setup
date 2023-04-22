@@ -22,6 +22,10 @@ read -p "Install ncdu               (Press y/n): " brew_ncdu
 read -p "Install bat                (Press y/n): " brew_bat
 read -p "Install imagemagick        (Press y/n): " brew_imagemagick
 read -p "Install speedtest_cli      (Press y/n): " brew_speedtest_cli
+read -p "Install youtube-dl         (Press y/n): " brew_youtube_dl
+read -p "Install fzf                (Press y/n): " brew_fzf
+read -p "Install ripgrep            (Press y/n): " brew_ripgrep
+read -p "Install ranger             (Press y/n): " brew_ranger
 echo -e ""
 
 # ----------------------------------------------- installing curl
@@ -179,4 +183,36 @@ then
     brew install speedtest-cli
 else
     echo -e "\t SKIPPING speedtest-cli installation"
+fi
+# ----------------------------------------------- installing youtube-dl
+if [ $brew_youtube_dl == y ] || [ $brew_youtube_dl == Y ]
+then
+    echo -e "\n\n=============================================> Installing youtube-dl \n"
+    brew install youtube-dl
+else
+    echo -e "\t SKIPPING youtube-dl installation"
+fi
+# ----------------------------------------------- installing fzf
+if [ $brew_fzf == y ] || [ $brew_fzf == Y ]
+then
+    echo -e "\n\n=============================================> Installing fzf \n"
+    brew install fzf
+else
+    echo -e "\t SKIPPING fzf installation"
+fi
+# ----------------------------------------------- installing ripgrep
+if [ $brew_ripgrep == y ] || [ $brew_ripgrep == Y ]
+then
+    echo -e "\n\n=============================================> Installing ripgrep \n"
+    brew install ripgrep
+else
+    echo -e "\t SKIPPING ripgrep installation"
+fi
+# ----------------------------------------------- installing ranger
+if [ $brew_ranger == y ] || [ $brew_ranger == Y ]
+then
+    echo -e "\n\n=============================================> Installing ranger \n"
+    brew install ranger
+else
+    echo -e "\t SKIPPING ranger installation"
 fi
