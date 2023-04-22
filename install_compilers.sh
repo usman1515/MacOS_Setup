@@ -8,6 +8,7 @@ read -p "Install make           (Press y/n): " apt_make
 read -p "Install python         (Press y/n): " apt_python3
 read -p "Install java           (Press y/n): " apt_openjdk
 read -p "Install scala          (Press y/n): " apt_scala
+read -p "Install rust           (Press y/n): " apt_rust
 read -p "Install docker         (Press y/n): " apt_docker
 echo -e ""
 
@@ -94,6 +95,15 @@ then
     brew install sbt
 else
     echo -e "\t SKIPPING scala installation"
+fi
+# ----------------------------------------------- installing rust
+if [ $apt_rust == y ] || [ $apt_rust == Y ]
+then
+    echo -e "\n\n=============================================> Installing rust \n"
+    rust --version
+    brew install rust
+else
+    echo -e "\t SKIPPING rust installation"
 fi
 # ----------------------------------------------- installing docker
 if [ $apt_docker == y ] || [ $apt_docker == Y ]
