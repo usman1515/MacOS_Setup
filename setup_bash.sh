@@ -17,14 +17,5 @@ echo -e ""
 echo -e "Currently using shell: " $SHELL
 echo -e ""
 
-# change shell to bash
-chsh -s /opt/homebrew/bin/bash
-echo -e "Now using shell:       " $SHELL
-bash --version
-
-# update setings
-source ~/.bash_profile
-
-
-# to learn more about the basic operations of the bash shell consult the following repo.
-# https://github.com/Idnan/bash-guide
+# install oh my posh
+brew install jandedobbeleer/oh-my-posh/oh-my-posh
