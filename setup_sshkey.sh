@@ -17,6 +17,8 @@ then
     ssh-keygen -t ed25519 -C "$email_address"
     # start the ssh-agent in background
     eval "$(ssh-agent -s)"
+    # copy config file to .ssh
+    cp -v configs/config ~/.ssh
     # add SSH private key to ssh agent
     ssh-add --apple-use-keychain ~/.ssh/id_ed25519
     ls -al ~/.ssh
@@ -26,6 +28,3 @@ then
 else
     echo -e "\t SKIPPING SSH key setup"
 fi
-
-# copy the ssh config file
-cp -rv configs/config ~/.ssh
