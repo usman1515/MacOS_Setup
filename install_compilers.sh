@@ -17,7 +17,6 @@ if [ $apt_git == y ] || [ $apt_git == Y ]
 then
     echo -e "\n\n=============================================> Installing git \n"
     brew install git
-    cp -rv configs/.gitconfig ~/.gitconfig
     # enter GitHub/GitLab user credentials
     read -p "Enter GitHub/GitLab user: " git_user
     read -p "Enter GitHub/GitLab user name: " git_name
@@ -36,7 +35,7 @@ then
     echo -e "\n\n=============================================> Installing gcc \n"
     gcc --version
     g++ --version
-    # install GCC and GPP
+    # install GCC and G++
     brew install gcc
     gcc-12 --version
     g++-12 --version
