@@ -1,111 +1,134 @@
 # MacOS Setup
 
 ## Table of Contents
-- [MacOS Setup](#macos-setup)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [1.   Setting Up System Preferences](#1---setting-up-system-preferences)
-    - [1.1 General](#11-general)
-    - [1.2 Dock and Menu Bar](#12-dock-and-menu-bar)
-    - [1.3 Trackpad](#13-trackpad)
-    - [1.4 Displays](#14-displays)
-  - [2.   Setting up the Development Environment](#2---setting-up-the-development-environment)
-  - [3.  Setting up the Terminal](#3--setting-up-the-terminal)
-    - [3.1 Kitty and Alacritty (my favourites)](#31-kitty-and-alacritty-my-favourites)
-    - [3.2 iTerm2](#32-iterm2)
-    - [3.3 Setting up iTerm2 Preferences](#33-setting-up-iterm2-preferences)
-    - [3.4 Add iterm2 in spotlight](#34-add-iterm2-in-spotlight)
-  - [4.   Setting up the SHELLS](#4---setting-up-the-shells)
-    - [4.1 Setup ZSH](#41-setup-zsh)
-    - [4.2  Setup BASH](#42--setup-bash)
-  - [5.   Install Compilers and Toolchains](#5---install-compilers-and-toolchains)
-  - [6.   Install CLI Tools](#6---install-cli-tools)
-  - [7.   Install GUI Tools](#7---install-gui-tools)
-  - [8.   Setup SSH for GitHub/GitLab etc](#8---setup-ssh-for-githubgitlab-etc)
-  - [9.   Change HostName of PC](#9---change-hostname-of-pc)
-  - [10.   Setting up Keyboard Shortcuts](#10---setting-up-keyboard-shortcuts)
-  - [11.  Basic Configurations](#11--basic-configurations)
-    - [11.1    Setup configs for CLI based tools](#111----setup-configs-for-cli-based-tools)
-    - [11.2    Sort all apps in Launchpad](#112----sort-all-apps-in-launchpad)
 
 ## Introduction
-This repo is designed for anyone who is moving from Linux to MacOS for the 1st time. The reason for the switch is simply because of the new Apple Silicon that is being offered. I still pretty much will be using my Linux workflow and tools on the Mac. This guide simply eases in the migration of those tools.
-
-The following environment was developed on an Apple MacBook Air M1 running MacOS Monterey (ver 12.5). You can read more about it [here](https://www.apple.com/macbook-air-m1/).
+This repo is designed for anyone who is moving from Linux to MacOS for the 1st time. This guide focuses on setting up a MacBook Air M1 running macOS Sequoia (15.0). I will still pretty much will be using my Linux workflow and tools on the Mac. This guide simply eases in the migration of those tools.
 
 ## 1.   Setting Up System Preferences
 As this is a new computer there are a couple tweaks you could make to the System Preferences. These include but aren't limited to:
 
-### 1.1 General
--   Show scroll bar:
--   -   [x] Always
-
-### 1.2 Dock and Menu Bar
--   Dock size: set slider to approx 20%
--   -   [x] Magnification: set slider to approx 50%.
--   -   [x] Automatically hide and show the dock.
--   Bluetooth:
-    -   [x] Show in menu bar
--   Keyboard brightness:
-    -   [x] Show in menu bar
+### 1.1 System Settings
+-   Network
+    - firewall: Enable
 -   Battery
-    -   [x] Show percentage.
--   Clock:
-    -   Show date: Always
-    -   [x] Display the time with seconds.
--   Spotlight:
-    -   [ ] Show in menu bar.
+    -   battery health
+        -   optimized battery charging: Enable
+-   Appearance
+    -   appearance: Dark
+    -   accent color: multi color
+    -   sidebar icon size: medium
+    -   show scroll bars: always
+-   Control Center
+    -   control center modules
+        -   wifi: show in menu bar
+        -   bluetooth: show in menu bar
+        -   airdrop: show in menu bar
+        -   display: always show in menu bar
+        -   sound: show when active
+        -   now playing: show when active
+    -   other modules
+        -   battery
+            -   show percentage: enable
+        -   keyboard brightness
+            -   show in menu bar: enable
+-   Desktop and Dock
+    -   Dock
+        -   position on screen: bottom
+        -   minimize windows using: genie effect
+        -   double click a windows title bar to: fill
+        -   automatically hide and show the dock: enable
+    -   Desktop and Stage Manager
+    -   Widgets
+        -   default web browser: safari
+    -   Windows
+        -   ask to keep changes when closing documents: enable
+-   Display
+    -   automatically adjust brightness: disable
+    -   true tone: enable
+    -   color profile: color LCD
+    -   Setup Night Shift as needed
+-   Siri
+    -   siri: disable
+-   Notifications
+-   Sound
+    -   alert sound: breeze
+-   Lock Screen
+    -   show large clock: on screen saver and lock screen
+    -   show 24 hour time: enable
+-   iCloud
+    -   access iCloud data on the web: enable
+-   Keyboard
+    -   adjust keyboard brightness in low light: disable
+    -   Dictation: disable
+-   Trackpad
+    -   tap to click: enable
+    -   secondary click: click or tap with two fingers
 
-### 1.3 Trackpad
--   Point and click
-    -   -   [x] Secondary click.
-    -   -   [x] Tap to click.
-
--   Scroll and zoom
-    -   -   [x] Scroll direction:  Natural
-    -   -   [x] Zoom in and out
-    -   -   [x] Smart zoom
-    -   -   [x] Rotate
-
-### 1.4 Displays
--   -   [ ] Automatically adjust brightness
-
-Once all this done run he following commands in the terminal. <!-- and restart the machine. -->
-```zsh
+### 1.2 Remove workspace auto auto-switching
+```bash
 # Remove workspace auto-switching by running the following command:
 defaults write com.apple.dock workspaces-auto-swoosh -bool NO
 # Restart the Dock process
 killall Dock
+```
 
+### 1.3 Enable repeating keys
+```bash
 # Enable repeating keys by pressing and holding down keys:
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false # (restart any app that you need to repeat keys in)
+```
 
-# Change the default folder for screenshots
+### 1.4 Change default folder for screenshots
+```bash
 # create screenshots folder
 mkdir -p ~/Pictures/Screenshots
+
 # Then run the following command
 defaults write com.apple.screencapture location ~/Pictures/Screenshots && killall SystemUIServer
 ```
 
-## 2.   Setting up the Development Environment
-1.  Install xcode and [Homebrew](https://brew.sh):
-    ```zsh
-    source install_homebrew.sh
-    ```
-2.  Install [Rosetta](https://support.apple.com/en-us/HT211861):
-    ```zsh
-    /usr/sbin/softwareupdate --install-rosetta --agree-to-license
-    ```
+## 2. Install Developer Tools
+
+### 2.1 Install XCode
+```bash
+# install command line tools for xcode
+sudo xcode-select --install
+```
+
+### 2.2 Install [Homebrew](https://brew.sh/)
+```bash
+# install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# check if all is ok
+# NOTE: it might prompt you to update xcode command line tools.
+brew doctor
+
+# check install packages
+brew list
+```
+
+### 2.3 Install Git
+```bash
+brew install git
+```
+
+<!-- BUG: start from here -->
+
+
+
 
 ## 3.  Setting up the Terminal
-### 3.1 Kitty and Alacritty (my favourites)
+
+### 3.1 Kitty and Alacritty
 1.  Install Kitty and Alacritty
-    ```zsh
+    ```bash
     brew install --cask kitty
     brew install --cask alacritty
     ```
 2.  Install a [Nerd font](https://www.nerdfonts.com/font-downloads).
-    ```zsh
+    ```bash
     brew tap homebrew/cask-fonts
 
     # my favourite font
@@ -127,7 +150,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
     brew search "/font-/"
     ```
 3.  Install git:
-    ```zsh
+    ```bash
     brew install git
     ```
 4.  Clone the [dotfiles](https://github.com/usman1515/dotfiles) repo.
@@ -136,7 +159,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
     ```
 5.  Copy the [git](https://github.com/usman1515/dotfiles/tree/main/git) config file `.gitconfig` into the `$HOME` directory.
 6.  Setup [alacritty](https://github.com/usman1515/dotfiles/tree/main/alacritty) terminal config using the dotfiles repo.
-    ```zsh
+    ```bash
     # copy config
     cp -rv dotfiles/alacritty ~/.config
 
@@ -144,7 +167,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
     git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
     ```
 7.  Setup [kitty](https://github.com/usman1515/dotfiles/tree/main/kitty) terminal config using the dotfiles repo.
-    ```zsh
+    ```bash
     # copy config
     cp -rv dotfiles/kitty ~/.config
 
@@ -154,7 +177,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 
 ### 3.2 iTerm2
 1.  Install iterm2
-    ```zsh
+    ```bash
     brew install --cask iterm2
     ```
 
@@ -207,7 +230,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 ### 4.1 Setup ZSH
 -   I use ZSH for everyday usage of the terminal.
 -   To setup [ZSH](https://www.zsh.org/) run the following script.
-    ```zsh
+    ```bash
     source setup_zsh.sh
     ```
 -   Copy the [zsh](https://github.com/usman1515/dotfiles/tree/main/zsh) config files into the `$HOME` dir.
@@ -322,7 +345,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 
 ## 9.   Change HostName of PC
 -   To change the hostname of the PC via terminal enter the following commands:
-    ```zsh
+    ```bash
     sudo scutil --get HostName
     sudo scutil --set HostName <your_host_name>
     ```
@@ -341,7 +364,7 @@ defaults write com.apple.screencapture location ~/Pictures/Screenshots && killal
 To setup configs for various CLi tools including git, neovim, tmux look into the [dotfiles](https://github.com/usman1515/dotfiles) repo.
 
 ### 11.2    Sort all apps in Launchpad
-```zsh
+```bash
 defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 ```
 The following command will arrange all MacOS apps on the 1st page and all installed apps on the other pages.
